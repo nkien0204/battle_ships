@@ -10,7 +10,7 @@ using namespace std;
 
 class Menu {
 protected:
-	virtual void doTask(const int &choice) const = 0;
+	virtual void doTask(const int &choice) = 0;
 	virtual void printMenu() const = 0;
 	int getChoice();
 public:

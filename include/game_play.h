@@ -19,6 +19,11 @@
 #define HUMAN 	0
 #define COM   	1
 
+#define UP 2
+#define DOWN 3
+#define LEFT 4
+#define RIGHT 5
+
 using namespace std;
 
 class GamePlay : public Menu {
@@ -41,6 +46,8 @@ private:
 	void option();
 	void doTask(const int &choice);
 	void printMenu() const;
+	void setShipsPosition(Player *player);
+	bool checkShipsPosition() const;
 };
 
 #endif

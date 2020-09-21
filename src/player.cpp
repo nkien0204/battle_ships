@@ -12,4 +12,8 @@ void Player::setNrTargetShots(const int &n_target_shots) {
 	this->n_target_shots = n_target_shots;
 }
 
+int Player::getNrShips() const {
+	return (int)ships.size();
+}
+
 Player::~Player() {}

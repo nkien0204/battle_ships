@@ -1,8 +1,8 @@
 #include "../include/menu.h"
 
 int Menu::getChoice() {
-	int choice = 0;
-	cout << "Your choice: "; cin >> choice;
+	int choice;
+	cout << "Your choice (0: quit): "; cin >> choice;
 
 	return choice;
 }
@@ -13,7 +13,8 @@ void Menu::running() {
 	while(running) {
 		printMenu();
 		int choice = getChoice();
-		if (choice == 0) running = false;
+		doTask(choice);
+		if (choice == EXIT) running = false;
 	}
 }
 

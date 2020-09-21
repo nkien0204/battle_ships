@@ -1,7 +1,7 @@
 #include "../include/human.h"
 
 Human::Human() {
-	cout << "Enter your name:"; cin >> name;
+	cout << "Enter your name: "; cin >> name;
 	total_shots = 0;
 	n_target_shots = 0;
 }

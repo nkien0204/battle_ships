@@ -1,6 +1,6 @@
-#include <iostream>
+#include "../include/game_play.h"
 
-int main(int argc, char *argv[])
-{
-	std::cout << "Hello world!" << std::endl;
+int main() {
+	GamePlay my_game;
+	my_game.running();
 }

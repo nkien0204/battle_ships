@@ -20,8 +20,8 @@ void Board::createMatrix() {
 	bool choosing = true;
 	char choice;
 
-	cout << "Board: Using default size (8x8)? (y = Yes, n = No): "; cin >> choice;
 	while (choosing) {
+		cout << "BOARD: Using default size (8x8)? (y = Yes, n = No): "; cin >> choice;
 		if (choice == 'y' || choice == 'Y') {
 			initMatrix(B_HEIGHT, B_WIDTH);
 			choosing = false;
@@ -44,9 +44,12 @@ void Board::createMatrix() {
 }
 
 void Board::initMatrix(const unsigned int &height, const unsigned int &width) {
+	vector<int> matrix_col(width);
+
 	for (int i = 0; i < height; i++) {
+		matrix.push_back(matrix_col);
 		for (int j = 0; j < width; j++) {
-			matrix[i][j] = 0;
+			matrix[i].push_back(0);
 		}
 	}
 }
