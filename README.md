@@ -1,3 +1,3 @@
-# MINI PROJECT FOR GAME "BATTLE SHIPS"
+# MINI PROJECT FOR "BATTLE SHIPS" GAME
 todo:
  - solve problem for destructor
