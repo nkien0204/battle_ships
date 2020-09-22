@@ -14,8 +14,8 @@ using namespace std;
 class Player {
 protected:
 	string name;
-	static vector<Ship *> ships;
-	Board board;
+	vector<Ship *> ships;
+	Board *board;
 	int total_shots;
 	int n_target_shots;
 public:
@@ -25,10 +25,11 @@ public:
 	int getTotalShots() const;
 	int getNrTargetShots() const;
 	int getNrShips() const;
+	string getName() const;
+	Board *getBoard() const;
 	vector<Ship *> getShips() const;
-	
+
 	virtual void choosePosition(unsigned int &x, unsigned int &y, const vector<vector<int>> matrix) = 0;
-	virtual void createShips() = 0;
 	virtual ~Player();
 };
 

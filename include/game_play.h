@@ -48,6 +48,7 @@ private:
 	void printMenu() const;
 	void setShipsPosition(Player *player);
 	bool checkShipsPosition() const;
+	void showUserInfo() const;
 };
 
 #endif

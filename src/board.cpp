@@ -8,6 +8,13 @@ Board::Board(const unsigned int &height, const unsigned int &width) {
 	initMatrix(height, width);
 }
 
+Board::Board(const Board &cpy_board) {
+	height = cpy_board.getHeight();
+	width = cpy_board.getWidth();
+
+	initMatrix(height, width);
+}
+
 void Board::setHeight(const unsigned int &height) {
 	this->height = height;
 }
@@ -51,6 +58,15 @@ void Board::initMatrix(const unsigned int &height, const unsigned int &width) {
 		for (int j = 0; j < width; j++) {
 			matrix[i].push_back(0);
 		}
+	}
+}
+
+void Board::showMatrix() const {
+	for (int i = 0; i < height; i++) {
+		for (int j = 0; j < width; j++) {
+			cout << matrix[i][j] << " ";
+		}
+		cout << endl;
 	}
 }
 

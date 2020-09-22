@@ -5,6 +5,11 @@ Ship::Ship() {
 	width = S_WIDTH;
 }
 
+Ship::Ship(const Ship &cpy_ship) {
+	unsigned int cpy_length = cpy_ship.getLength();
+	unsigned int cpy_width = cpy_ship.getWidth();
+}
+
 Ship::Ship(const unsigned int &length, const unsigned int &width) {
 	// check ship size with board size
 

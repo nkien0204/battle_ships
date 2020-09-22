@@ -2,14 +2,25 @@
 
 Computer::Computer() {}
 
-Computer::Computer(const int &level) {
+Computer::Computer(const int &level, const Board *hum_board, const vector<Ship *> &hum_ships) {
 	name = "COM";
 	this->level = level;
 	total_shots = 0;
 	n_target_shots = 0;
+
+	createBoard(hum_board);
+	createShips(hum_ships);
 }
 
-void Computer::createShips() {}
+void Computer::createBoard(const Board *hum_board) {
+	board = new Board(*hum_board);
+}
+
+void Computer::createShips(const vector<Ship *> &hum_ships) {
+	for (int i = 0; i < (int)hum_ships.size(); i++) {
+		ships.push_back(hum_ships[i]);
+	}
+}
 
 void Computer::choosePosition(unsigned int &x, unsigned int &y, const vector<vector<int>> matrix) {
 	switch(level) {
@@ -50,6 +61,7 @@ void Computer::playHardLv(unsigned int &x, unsigned int &y, const vector<vector<
 
 Computer::~Computer() {
 	for (int i = 0; i < (int)ships.size(); i++) {
-		delete ships.at(i);
+		delete ships[i];
 	}
+	delete board;
 }

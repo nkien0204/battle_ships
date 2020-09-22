@@ -4,9 +4,12 @@ Human::Human() {
 	cout << "Enter your name: "; cin >> name;
 	total_shots = 0;
 	n_target_shots = 0;
+
+	createBoard();
+	createShips();
 }
 
-void Human::choosePosition(unsigned int &x,unsigned int &y, const vector<vector<int>> matrix) {
+void Human::choosePosition(unsigned int &x, unsigned int &y, const vector<vector<int>> matrix) {
 	bool choosing = true;
 
 	while (choosing) {
@@ -23,6 +26,10 @@ void Human::choosePosition(unsigned int &x,unsigned int &y, const vector<vector<
 	}
 }
 
+void Human::createBoard() {
+	board = new Board();
+}
+
 void Human::createShips() {
 	char choice;
 	bool choosing = true;
@@ -37,11 +44,13 @@ void Human::createShips() {
 	choosing = true;
 
 	while (choosing) {
+		Ship *my_ship = NULL;
 		cout << "Ships: Using default size (1x3)? (y = Yes, n = No): "; cin >> choice;
 		if (choice == 'y' || choice == 'Y') {
 			for (int i = 0; i < n_ships; i++) {
-				Ship *my_ship = new Ship(S_LENGTH, S_WIDTH);
+				my_ship = new Ship(S_LENGTH, S_WIDTH);
 				ships.push_back(my_ship);
+				delete my_ship;
 			}
 			choosing = false;
 		} else if (choice == 'n' || choice == 'N') {
@@ -51,14 +60,17 @@ void Human::createShips() {
 					cout << "Invalid choice, try again" << endl;
 					i--;
 				} else if (choice == '0') {
-					Ship *my_ship = new Ship(3, 1);
+					my_ship = new Ship(3, 1);
 					ships.push_back(my_ship);
+					delete my_ship;
 				} else if (choice == '1') {
-					Ship *my_ship = new Ship(5, 1);
+					my_ship = new Ship(5, 1);
 					ships.push_back(my_ship);
+					delete my_ship;
 				} else if (choice == '2') {
-					Ship *my_ship = new Ship(7, 1);
+					my_ship = new Ship(7, 1);
 					ships.push_back(my_ship);
+					delete my_ship;
 				}
 			}
 			choosing = false;
@@ -68,6 +80,9 @@ void Human::createShips() {
 
 Human::~Human() {
 	for (int i = 0; i < (int)ships.size(); i++) {
-		delete ships.at(i);
+		delete ships[i];
 	}
+	cout << "hum destruct" << endl;
+	delete board;
+	cout << "hum destruct1" << endl;
 }

@@ -15,17 +15,11 @@ void GamePlay::initialize() {
 		}
 	}
 
-	Board *hum_board = new Board();
-	Board *com_board = new Board(hum_board->getHeight(), hum_board->getWidth());
-	boards.push_back(hum_board);
-	boards.push_back(com_board);
-
 	Player *human = new Human();
-	Player *computer = new Computer(level);
+	Player *computer = new Computer(level, human->getBoard(), human->getShips());
+
 	players.push_back(human);
 	players.push_back(computer);
-
-	
 }
 
 void GamePlay::setShipsPosition(Player *player) {
@@ -64,6 +58,28 @@ void GamePlay::showHighScore() const {
 
 }
 
+void GamePlay::showUserInfo() const {
+	for (int i = 0; i < (int)players.size(); i++) {
+		cout << "--------------------" << endl;
+
+		if (i == HUMAN) {
+			cout << "HUMAN" << endl;
+		} else {
+			cout << "COMPUTER" << endl;
+		}
+
+		// cout << "Name: " << players[i]->getName() << endl;
+		// cout << "Amount of ships(size): " << players[i]->getNrShips() 
+		// 	<< "(" << players[i]->getShips()[0]->getLength() << "x" << players[i]->getShips()[0]->getWidth() << ")" << endl;
+		// cout << "Board data: "
+		// 	<< "Size: " << players[i]->getBoard()->getHeight() << "x" << players[i]->getBoard()->getWidth() << endl;
+		// if (i == HUMAN) {
+		// 	cout << "Board status:" << endl;
+		// 	// players[HUMAN]->getBoard()->showMatrix();
+		// }
+	}
+}
+
 void GamePlay::doTask(const int &choice) {
 	switch(choice) {
 		case 1:
@@ -73,6 +89,9 @@ void GamePlay::doTask(const int &choice) {
 			break;
 		case 2:
 			showHighScore();
+			break;
+		case 3:
+			showUserInfo();
 			break;
 		case 0:
 			break;
@@ -87,12 +106,13 @@ void GamePlay::printMenu() const {
 	cout << "BATTLE SHIPS" << endl;
 	cout << "1. Play" << endl;
 	cout << "2. Show high score" << endl;
+	cout << "3. Show user info" << endl;
 	cout << "*************************" << endl;
 }
 
 GamePlay::~GamePlay() {
 	for (int i = 0; i < (int)players.size(); i++) {
 		delete players[i];
-		delete boards[i];
 	}
+	cout << "free" << endl;
 }

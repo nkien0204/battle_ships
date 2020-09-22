@@ -13,6 +13,7 @@ protected:
 	unsigned int width;
 public:
 	Ship();
+	Ship(const Ship &cpy_ship);
 	Ship(const unsigned int &length, const unsigned int &width);
 	void setLength(const unsigned int &length);
 	void setWidth(const unsigned int &width);
