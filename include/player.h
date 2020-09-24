@@ -29,7 +29,7 @@ public:
 	Board *getBoard() const;
 	vector<Ship *> getShips() const;
 
-	virtual void choosePosition(unsigned int &x, unsigned int &y, const vector<vector<int>> matrix) = 0;
+	virtual void choosePosition(int &x, int &y, const vector<vector<int>> matrix) = 0;
 	virtual ~Player();
 };
 
