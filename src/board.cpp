@@ -4,22 +4,15 @@ Board::Board() {
 	createMatrix();
 }
 
-Board::Board(const unsigned int &height, const unsigned int &width) {
+Board::Board(const int &height, const int &width) {
 	initMatrix(height, width);
 }
 
-Board::Board(const Board &cpy_board) {
-	height = cpy_board.getHeight();
-	width = cpy_board.getWidth();
-
-	initMatrix(height, width);
-}
-
-void Board::setHeight(const unsigned int &height) {
+void Board::setHeight(const int &height) {
 	this->height = height;
 }
 
-void Board::setWidth(const unsigned int &width) {
+void Board::setWidth(const int &width) {
 	this->width = width;
 }
 
@@ -50,7 +43,7 @@ void Board::createMatrix() {
 	}
 }
 
-void Board::initMatrix(const unsigned int &height, const unsigned int &width) {
+void Board::initMatrix(const int &height, const int &width) {
 	vector<int> matrix_col(width);
 
 	for (int i = 0; i < height; i++) {
@@ -59,6 +52,8 @@ void Board::initMatrix(const unsigned int &height, const unsigned int &width) {
 			matrix[i].push_back(0);
 		}
 	}
+
+	showMatrix();
 }
 
 void Board::showMatrix() const {
@@ -70,11 +65,11 @@ void Board::showMatrix() const {
 	}
 }
 
-unsigned int Board::getHeight() const {
+int Board::getHeight() const {
 	return height;
 }
 
-unsigned int Board::getWidth() const {
+int Board::getWidth() const {
 	return width;
 }
 
