@@ -4,10 +4,6 @@ Board::Board() {
 	createMatrix();
 }
 
-Board::Board(const int &height, const int &width) {
-	initMatrix(height, width);
-}
-
 void Board::setHeight(const int &height) {
 	this->height = height;
 }
@@ -44,16 +40,10 @@ void Board::createMatrix() {
 }
 
 void Board::initMatrix(const int &height, const int &width) {
-	vector<int> matrix_col(width);
-
-	for (int i = 0; i < height; i++) {
-		matrix.push_back(matrix_col);
-		for (int j = 0; j < width; j++) {
-			matrix[i].push_back(0);
-		}
-	}
-
-	showMatrix();
+	this->height = height;
+	this->width = width;
+	
+	matrix.resize(height, vector<int> (width, 0));
 }
 
 void Board::showMatrix() const {
@@ -75,4 +65,8 @@ int Board::getWidth() const {
 
 vector<vector<int>> Board::getMatrix() const {
 	return matrix;
+}
+
+void Board::setMatrix(const vector<vector<int>> &matrix) {
+	this->matrix = matrix;
 }
