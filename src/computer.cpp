@@ -22,7 +22,7 @@ void Computer::createShips(const vector<Ship *> &hum_ships) {
 	}
 }
 
-void Computer::choosePosition(unsigned int &x, unsigned int &y, const vector<vector<int>> matrix) {
+void Computer::choosePosition(int &x, int &y, const vector<vector<int>> matrix) {
 	switch(level) {
 		case EASY:
 			playEasyLv(x, y, matrix);
@@ -36,7 +36,7 @@ void Computer::choosePosition(unsigned int &x, unsigned int &y, const vector<vec
 	} 
 }
 
-void Computer::playEasyLv(unsigned int &x, unsigned int &y, const vector<vector<int>> matrix) {
+void Computer::playEasyLv(int &x,  int &y, const vector<vector<int>> matrix) {
 	bool choosing = true;
 
 	while(choosing) {
@@ -51,12 +51,12 @@ void Computer::playEasyLv(unsigned int &x, unsigned int &y, const vector<vector<
 	}
 }
 
-void Computer::playMediumLv(unsigned int &x, unsigned int &y, const vector<vector<int>> matrix) {
-
+void Computer::playMediumLv(int &x, int &y, const vector<vector<int>> matrix) {
+	cout << "playing in medium level" << endl;
 }
 
-void Computer::playHardLv(unsigned int &x, unsigned int &y, const vector<vector<int>> matrix) {
-
+void Computer::playHardLv(int &x, int &y, const vector<vector<int>> matrix) {
+	cout << "playing in hard level" << endl;
 }
 
 Computer::~Computer() {
