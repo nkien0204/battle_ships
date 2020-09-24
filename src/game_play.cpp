@@ -23,21 +23,21 @@ void GamePlay::initialize() {
 }
 
 void GamePlay::setShipsPosition(Player *player) {
+	srand(time(NULL));
 	for (int i = 0; i < (int)player->getNrShips(); i++) {
-		srand(time(NULL));
+		
 		int x = rand() % player->getBoard()->getHeight();
 		int y = rand() % player->getBoard()->getWidth();
+		
 		vector<vector<int>> matrix = player->getBoard()->getMatrix();
-		Ship *ship = player->getShips()[i];
 
 		//2:UP, 3:DOWN, 4:LEFT, 5:RIGHT
-		int direction = rand() % 6 + 2;
+		int direction = rand() % 4 + 2;
 
-		if (!checkShipsPosition(x, y, direction, ship->getLength(), matrix)) {
+		if (!checkShipsPosition(x, y, direction, player->getShips()[i]->getLength(), matrix)) {
 			i--;
 		}
-
-		delete ship;
+		player->getBoard()->setMatrix(matrix);
 	}
 }
 
@@ -65,25 +65,12 @@ bool GamePlay::checkShipsPosition(const int &x, const int &y, const int &dir, co
 	return check;
 }
 
-bool GamePlay::checkUp(int x, const int &y, const int &len, vector<vector<int>> &matrix) const {
-	for (int i = 0; i < len; i++, x--) {
-		if (x < 0 || matrix[x][y] != 0) {
+bool GamePlay::checkUp(int x, const int &y, const int &len, vector<vector<int>> &matrix) {
+	int temp_x = x;
+	for (int i = 0; i < len; i++) {
+		if (temp_x < 0 || matrix[temp_x][y] != 0) {
 			return false;
-		}
-	}
-
-	for (int i = 0; i < len; i++, x++) {
-		matrix[x][y] = 1;
-	}
-
-	return true;
-}
-
-bool GamePlay::checkDown(int x, const int &y, const int &len, vector<vector<int>> &matrix) const {
-	for (int i = 0; i < len; i++, x++) {
-		if (x >= (int)matrix.size() || matrix[x][y] != 0) {
-			return false;
-		}
+		} else temp_x--;
 	}
 
 	for (int i = 0; i < len; i++, x--) {
@@ -93,28 +80,45 @@ bool GamePlay::checkDown(int x, const int &y, const int &len, vector<vector<int>
 	return true;
 }
 
-bool GamePlay::checkLeft(const int &x, int y, const int &len, vector<vector<int>> &matrix) const {
-	for (int i = 0; i < len; i++, y--) {
-		if (y < 0 || matrix[x][y] != 0) {
+bool GamePlay::checkDown(int x, const int &y, const int &len, vector<vector<int>> &matrix) {
+	int temp_x = x;
+	for (int i = 0; i < len; i++) {
+		if (temp_x >= (int)matrix.size() || matrix[temp_x][y] != 0) {
 			return false;
-		}
+		} else temp_x++;
 	}
 
-	for (int i = 0; i < len; i++, y++) {
+	for (int i = 0; i < len; i++, x++) {
 		matrix[x][y] = 1;
 	}
 
 	return true;
 }
 
-bool GamePlay::checkRight(const int &x, int y, const int &len, vector<vector<int>> &matrix) const {
-	for (int i = 0; i < len; i++, y++) {
-		if (y >= (int)matrix[0].size() || matrix[x][y] != 0) {
+bool GamePlay::checkLeft(const int &x, int y, const int &len, vector<vector<int>> &matrix) {
+	int temp_y = y;
+	for (int i = 0; i < len; i++) {
+		if (temp_y < 0 || matrix[x][temp_y] != 0) {
 			return false;
-		}
+		} else temp_y--;
 	}
 
 	for (int i = 0; i < len; i++, y--) {
+		matrix[x][y] = 1;
+	}
+
+	return true;
+}
+
+bool GamePlay::checkRight(const int &x, int y, const int &len, vector<vector<int>> &matrix) {
+	int temp_y = y;
+	for (int i = 0; i < len; i++) {
+		if (temp_y >= (int)matrix[0].size() || matrix[x][temp_y] != 0) {
+			return false;
+		} else temp_y++;
+	}
+
+	for (int i = 0; i < len; i++, y++) {
 		matrix[x][y] = 1;
 	}
 
@@ -126,7 +130,8 @@ void GamePlay::showResult() const {
 }
 
 void GamePlay::play() {
-	cout << "Playing" << endl;
+	setShipsPosition(players[HUMAN]);
+	setShipsPosition(players[COM]);
 }
 
 void GamePlay::showHighScore() const {
@@ -134,25 +139,15 @@ void GamePlay::showHighScore() const {
 }
 
 void GamePlay::showUserInfo() const {
-	for (int i = 0; i < (int)players.size(); i++) {
-		cout << "--------------------" << endl;
+	cout << "--------------------" << endl;
 
-		if (i == HUMAN) {
-			cout << "HUMAN" << endl;
-		} else {
-			cout << "COMPUTER" << endl;
-		}
-
-		cout << "Name: " << players[i]->getName() << endl;
-		cout << "Amount of ships(size): " << players[i]->getNrShips() 
-			<< "(" << players[i]->getShips()[0]->getLength() << "x" << players[i]->getShips()[0]->getWidth() << ")" << endl;
-		cout << "Board data: "
-			<< "Size: " << players[i]->getBoard()->getHeight() << "x" << players[i]->getBoard()->getWidth() << endl;
-		if (i == HUMAN) {
-			cout << "Board status:" << endl;
-			players[HUMAN]->getBoard()->showMatrix();
-		}
-	}
+	cout << "Name: " << players[HUMAN]->getName() << endl;
+	cout << "Amount of ships(size): " << players[HUMAN]->getNrShips() 
+		 << "(" << players[HUMAN]->getShips()[0]->getLength() << "x" << players[HUMAN]->getShips()[0]->getWidth() << ")" << endl;
+	cout << "Board data: " << endl;
+	cout << "  Size: " << players[HUMAN]->getBoard()->getHeight() << "x" << players[HUMAN]->getBoard()->getWidth() << endl;
+	cout << "  Status:" << endl;
+	players[HUMAN]->getBoard()->showMatrix();
 }
 
 void GamePlay::doTask(const int &choice) {
