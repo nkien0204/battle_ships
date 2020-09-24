@@ -9,7 +9,7 @@ Human::Human() {
 	createShips();
 }
 
-void Human::choosePosition(unsigned int &x, unsigned int &y, const vector<vector<int>> matrix) {
+void Human::choosePosition(int &x, int &y, const vector<vector<int>> matrix) {
 	bool choosing = true;
 
 	while (choosing) {
@@ -50,7 +50,6 @@ void Human::createShips() {
 			for (int i = 0; i < n_ships; i++) {
 				my_ship = new Ship(S_LENGTH, S_WIDTH);
 				ships.push_back(my_ship);
-				delete my_ship;
 			}
 			choosing = false;
 		} else if (choice == 'n' || choice == 'N') {
@@ -62,15 +61,12 @@ void Human::createShips() {
 				} else if (choice == '0') {
 					my_ship = new Ship(3, 1);
 					ships.push_back(my_ship);
-					delete my_ship;
 				} else if (choice == '1') {
 					my_ship = new Ship(5, 1);
 					ships.push_back(my_ship);
-					delete my_ship;
 				} else if (choice == '2') {
 					my_ship = new Ship(7, 1);
 					ships.push_back(my_ship);
-					delete my_ship;
 				}
 			}
 			choosing = false;
@@ -82,7 +78,5 @@ Human::~Human() {
 	for (int i = 0; i < (int)ships.size(); i++) {
 		delete ships[i];
 	}
-	cout << "hum destruct" << endl;
 	delete board;
-	cout << "hum destruct1" << endl;
 }
