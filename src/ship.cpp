@@ -6,7 +6,6 @@ Ship::Ship() {
 }
 
 Ship::Ship(const int &length, const int &width) {
-	// check ship size with board size
 
 	this->length = length;
 	this->width = width;
