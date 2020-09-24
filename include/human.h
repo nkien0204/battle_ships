@@ -6,7 +6,7 @@
 class Human : public Player {
 public:
 	Human();
-	void choosePosition(unsigned int &x, unsigned int &y, const vector<vector<int>> matrix);
+	void choosePosition(int &x, int &y, const vector<vector<int>> matrix);
 	void createShips();
 	void createBoard();
 	~Human();
