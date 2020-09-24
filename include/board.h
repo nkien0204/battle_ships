@@ -11,22 +11,21 @@ using namespace std;
 
 class Board {
 protected:
-	unsigned int height;
-	unsigned int width;
+	int height;
+	int width;
 	vector<vector<int>> matrix;
 public:
 	Board();
-	Board(const Board &cpy_board);
-	Board(const unsigned int &height, const unsigned int &width);
-	void setHeight(const unsigned int &height);
-	void setWidth(const unsigned int &width);
-	unsigned int getHeight() const;
-	unsigned int getWidth() const;
+	Board(const int &height, const int &width);
+	void setHeight(const int &height);
+	void setWidth(const int &width);
+	int getHeight() const;
+	int getWidth() const;
 	vector<vector<int>> getMatrix() const;
 	void showMatrix() const;
 	void createMatrix();
 private:
-	void initMatrix(const unsigned int &height, const unsigned int &width);
+	void initMatrix(const int &height, const int &width);
 };
 
 #endif
