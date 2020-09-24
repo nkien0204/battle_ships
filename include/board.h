@@ -16,7 +16,6 @@ protected:
 	vector<vector<int>> matrix;
 public:
 	Board();
-	Board(const int &height, const int &width);
 	void setHeight(const int &height);
 	void setWidth(const int &width);
 	int getHeight() const;
@@ -24,6 +23,7 @@ public:
 	vector<vector<int>> getMatrix() const;
 	void showMatrix() const;
 	void createMatrix();
+	void setMatrix(const vector<vector<int>> &matrix);
 private:
 	void initMatrix(const int &height, const int &width);
 };
