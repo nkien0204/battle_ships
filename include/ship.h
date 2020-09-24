@@ -9,16 +9,15 @@
 
 class Ship {
 protected:
-	unsigned int length;
-	unsigned int width;
+	int length;
+	int width;
 public:
 	Ship();
-	Ship(const Ship &cpy_ship);
-	Ship(const unsigned int &length, const unsigned int &width);
-	void setLength(const unsigned int &length);
-	void setWidth(const unsigned int &width);
-	unsigned int getLength() const;
-	unsigned int getWidth() const;
+	Ship(const int &length, const int &width);
+	void setLength(const int &length);
+	void setWidth(const int &width);
+	int getLength() const;
+	int getWidth() const;
 };
 
 #endif
