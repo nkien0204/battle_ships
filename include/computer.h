@@ -6,9 +6,9 @@
 #include "ship.h"
 #include <time.h>
 
-#define EASY 		0
+#define EASY 	0
 #define MEDIUM 	1
-#define HARD 		2
+#define HARD 	2
 
 class Computer : public Player {
 private:
