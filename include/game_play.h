@@ -47,8 +47,12 @@ private:
 	void doTask(const int &choice);
 	void printMenu() const;
 	void setShipsPosition(Player *player);
-	bool checkShipsPosition() const;
+	bool checkShipsPosition(const int &x, const int &y, const int &dir, const int &length, vector<vector<int>> &matrix);
 	void showUserInfo() const;
+	bool checkUp(int x, const int &y, const int &length, vector<vector<int>> &matrix) const;
+	bool checkDown(int x, const int &y, const int &length, vector<vector<int>> &matrix) const;
+	bool checkLeft(const int &x, int y, const int &length, vector<vector<int>> &matrix) const;
+	bool checkRight(const int &x, int y, const int &length, vector<vector<int>> &matrix) const;
 };
 
 #endif
