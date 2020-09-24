@@ -44,11 +44,10 @@ void Human::createShips() {
 	choosing = true;
 
 	while (choosing) {
-		Ship *my_ship = NULL;
 		cout << "Ships: Using default size (1x3)? (y = Yes, n = No): "; cin >> choice;
 		if (choice == 'y' || choice == 'Y') {
 			for (int i = 0; i < n_ships; i++) {
-				my_ship = new Ship(S_LENGTH, S_WIDTH);
+				Ship *my_ship = new Ship(S_LENGTH, S_WIDTH);
 				ships.push_back(my_ship);
 			}
 			choosing = false;
@@ -59,14 +58,14 @@ void Human::createShips() {
 					cout << "Invalid choice, try again" << endl;
 					i--;
 				} else if (choice == '0') {
-					my_ship = new Ship(3, 1);
-					ships.push_back(my_ship);
+					Ship *my_ship31 = new Ship(3, 1);
+					ships.push_back(my_ship31);
 				} else if (choice == '1') {
-					my_ship = new Ship(5, 1);
-					ships.push_back(my_ship);
+					Ship *my_ship51 = new Ship(5, 1);
+					ships.push_back(my_ship51);
 				} else if (choice == '2') {
-					my_ship = new Ship(7, 1);
-					ships.push_back(my_ship);
+					Ship *my_ship71 = new Ship(7, 1);
+					ships.push_back(my_ship71);
 				}
 			}
 			choosing = false;
