@@ -40,7 +40,6 @@ private:
 	void initEasy(const int &level);
 	void initMedium(const int &level);
 	void initHard(const int &level);
-	void showResult() const;
 	void play();
 	void showHighScore() const;
 	void option();
@@ -53,6 +52,7 @@ private:
 	bool checkDown(int x, const int &y, const int &length, vector<vector<int>> &matrix);
 	bool checkLeft(const int &x, int y, const int &length, vector<vector<int>> &matrix);
 	bool checkRight(const int &x, int y, const int &length, vector<vector<int>> &matrix);
+	void shot();
 };
 
 #endif

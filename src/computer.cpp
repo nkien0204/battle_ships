@@ -7,6 +7,7 @@ Computer::Computer(const int &level, const Board *hum_board, const vector<Ship *
 	this->level = level;
 	total_shots = 0;
 	n_target_shots = 0;
+	hp = 0;
 
 	createBoard(hum_board);
 	createShips(hum_ships);
@@ -19,6 +20,10 @@ void Computer::createBoard(const Board *hum_board) {
 void Computer::createShips(const vector<Ship *> &hum_ships) {
 	for (int i = 0; i < (int)hum_ships.size(); i++) {
 		ships.push_back(hum_ships[i]);
+	}
+
+	for (int i = 0; i < ships.size(); i++) {
+		hp += ships[i]->getLength() * ships[i]->getWidth();
 	}
 }
 

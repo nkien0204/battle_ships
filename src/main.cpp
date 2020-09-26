@@ -3,4 +3,6 @@
 int main() {
 	GamePlay my_game;
 	my_game.running();
+	
+	return 0;
 }

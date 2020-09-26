@@ -2,12 +2,12 @@
 
 Player::Player() {}
 
-void Player::setTotalShots(const int &total_shots) {
-	this->total_shots = total_shots;
+void Player::setTotalShots() {
+	this->total_shots++;
 }
 
-void Player::setNrTargetShots(const int &n_target_shots) {
-	this->n_target_shots = n_target_shots;
+void Player::setNrTargetShots() {
+	this->n_target_shots++;
 }
 
 int Player::getNrShips() const {
@@ -24,6 +24,22 @@ vector<Ship *> Player::getShips() const {
 
 string Player::getName() const {
 	return name;
+}
+
+void Player::setHP(const int &hp) {
+	this->hp = hp;
+}
+
+int Player::getHP() const {
+	return hp;
+}
+
+int Player::getNrTargetShots() const {
+	return n_target_shots;
+}
+
+int Player::getTotalShots() const {
+	return total_shots;
 }
 
 Player::~Player() {}

@@ -125,13 +125,78 @@ bool GamePlay::checkRight(const int &x, int y, const int &len, vector<vector<int
 	return true;
 }
 
-void GamePlay::showResult() const {
-	cout << "Show result" << endl;
-}
-
 void GamePlay::play() {
+	bool running = true;
+	
 	setShipsPosition(players[HUMAN]);
 	setShipsPosition(players[COM]);
+	
+	shot();
+}
+
+void GamePlay::shot() {
+	bool turn = HUMAN;
+	bool running = true;
+	int x, y;
+
+	while (running) {
+		vector<vector<int>> matrix = players[!turn]->getBoard()->getMatrix();
+		
+		cout << "human board" << endl;
+		players[HUMAN]->getBoard()->showMatrix();
+
+		cout << "computer board" << endl;
+		players[COM]->getBoard()->showMatrix();
+
+		if (turn == HUMAN) {
+			bool choosing = true;
+			while (choosing) {
+				cout << "Enter shot coordination:" << endl;
+				cout << "  x: "; cin >> x;
+				cout << "  y: "; cin >> y;
+				if (x >= (int)matrix.size() || y >= (int)matrix[0].size()) {
+					cout << "Invalid coordinate, try again" << endl;
+				} else {
+					choosing = false;
+				}
+			}
+		} else {
+			players[COM]->choosePosition(x, y, matrix);
+			cout << "Computer choose x = " << x << ", y = " << y << endl;
+		}
+
+		if (matrix[x][y] == 1) {
+			players[turn]->setNrTargetShots();
+			int current_opponent_hp = players[!turn]->getHP() - 1;
+			cout << "Good shot!, opponent's HP =  " 
+			<< current_opponent_hp << endl;
+
+			matrix[x][y] = -1;
+
+			players[!turn]->getBoard()->setMatrix(matrix);
+			players[turn]->setTotalShots();
+
+			if (current_opponent_hp <= 0) {
+				if (turn == HUMAN) {
+					cout << "YOU WIN" << endl;
+					cout << "Shots on target: " << players[HUMAN]->getNrTargetShots() << endl;
+					cout << "Total shots: " << players[HUMAN]->getTotalShots() << endl;
+					cout << "Score: " << (float)players[HUMAN]->getNrTargetShots() / players[HUMAN]->getTotalShots() * 100 << endl;
+				} else {
+					cout << "COMPUTER WIN" << endl;
+					cout << "Shots on target: " << players[COM]->getNrTargetShots() << endl;
+					cout << "Total shots: " << players[COM]->getTotalShots() << endl;
+					cout << "Score: " << (float)players[COM]->getNrTargetShots() / players[COM]->getTotalShots() * 100 << endl;
+				}
+				running = false;
+			}
+			players[!turn]->setHP(current_opponent_hp);
+		} else {
+			cout << "Missing!" << endl;
+			players[turn]->setTotalShots();
+			turn = !turn;
+		}
+	}
 }
 
 void GamePlay::showHighScore() const {
@@ -155,7 +220,6 @@ void GamePlay::doTask(const int &choice) {
 		case 1:
 			initialize();
 			play();
-			showResult();
 			break;
 		case 2:
 			showHighScore();
