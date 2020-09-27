@@ -4,9 +4,7 @@ Human::Human() {
 	cout << "Enter your name: "; cin >> name;
 	total_shots = 0;
 	n_target_shots = 0;
-	for (int i = 0; i < ships.size(); i++) {
-		hp += ships[i]->getLength() * ships[i]->getWidth();
-	}
+	hp = 0;
 
 	createBoard();
 	createShips();
