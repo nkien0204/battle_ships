@@ -4,18 +4,17 @@
 GamePlay::GamePlay() {}
 
 void GamePlay::initialize() {
-	int level;
+	char level;
 	bool choosing = true;
 
 	while(choosing) {
 		try {
-			cout << "Choose level (0: EASY, 1: MEDIUM, 2:HARD): "; cin >> level;
-			if (level != 0 && level != 1 && level != 2) {
+			cout << "Choose level (0: EASY, 1: MEDIUM, 2:HARD): "; cin >> level;	
+			if (level != '0' && level != '1' && level != '2') {
 				throw InputException();
 			} else {
 				choosing = false;
 			}
-			throw InputException();
 		} catch (InputException e) {
 			cout << e.what() << endl;
 		}
@@ -144,6 +143,7 @@ void GamePlay::shot() {
 	bool turn = HUMAN;
 	bool running = true;
 	int x, y;
+	string s_x, s_y;
 
 	while (running) {
 		vector<vector<int>> matrix = players[!turn]->getBoard()->getMatrix();
@@ -157,13 +157,19 @@ void GamePlay::shot() {
 		if (turn == HUMAN) {
 			bool choosing = true;
 			while (choosing) {
-				cout << "Enter shot coordination:" << endl;
-				cout << "  x: "; cin >> x;
-				cout << "  y: "; cin >> y;
-				if (x >= (int)matrix.size() || y >= (int)matrix[0].size() || x < 0 || y < 0) {
-					cout << "Invalid coordinate, try again" << endl;
-				} else {
-					choosing = false;
+				try {
+					cout << "Enter shot coordination:" << endl;
+					cout << "  x: "; cin >> s_x;	x = stoi(s_x);
+					cout << "  y: "; cin >> s_y;	y = stoi(s_y);
+					if (x >= (int)matrix.size() || y >= (int)matrix[0].size() || x < 0 || y < 0) {
+						cout << "Invalid coordinate, try again" << endl;
+					} else {
+						choosing = false;
+					}
+				} catch (InputException ie) {
+					cout << ie.what() << endl;
+				} catch (...) {
+					cout << "Invalid input, coodination must be numbers" << endl;
 				}
 			}
 		} else {

@@ -2,7 +2,7 @@
 
 Computer::Computer() {}
 
-Computer::Computer(const int &level, const Board *hum_board, const vector<Ship *> &hum_ships) {
+Computer::Computer(const char &level, const Board *hum_board, const vector<Ship *> &hum_ships) {
 	name = "COM";
 	this->level = level;
 	total_shots = 0;

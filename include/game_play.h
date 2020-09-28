@@ -10,6 +10,7 @@
 
 #include <iostream>
 #include <vector>
+#include <string>
 #include "board.h"
 #include "player.h"
 #include "menu.h"

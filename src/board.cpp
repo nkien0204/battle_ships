@@ -26,7 +26,7 @@ void Board::createMatrix() {
 			} else if (choice == 'n' || choice == 'N') {
 				cout << "Size of Board (0:(8x8), 1:(12x12), 2:(16x16): "; cin >> choice;
 				if (choice != '0' && choice != '1' && choice != '2') {
-					cout << "Invalid choice, try again" << endl;
+					throw InputException();
 				} else if (choice == '0') {
 					initMatrix(8, 8);
 				} else if (choice == '1') {

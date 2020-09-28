@@ -8,7 +8,7 @@ using namespace std;
 class InputException : public exception {
 	public:
 		const char *what() const throw() {
-			return "Invalid input";
+			return "Invalid choice, try again";
 		}
 };
 #endif
