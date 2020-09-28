@@ -194,6 +194,7 @@ void GamePlay::shot() {
 					cout << "Shots on target: " << players[HUMAN]->getNrTargetShots() << endl;
 					cout << "Total shots: " << players[HUMAN]->getTotalShots() << endl;
 					cout << "Score: " << (float)players[HUMAN]->getNrTargetShots() / players[HUMAN]->getTotalShots() * 100 << endl << endl;
+					setHighScore();
 				} else {
 					cout << "COMPUTER WIN" << endl;
 					cout << "Shots on target: " << players[COM]->getNrTargetShots() << endl;
@@ -212,19 +213,33 @@ void GamePlay::shot() {
 }
 
 void GamePlay::showHighScore() const {
-	cout << "Show high score" << endl;
+	fstream file("high_score.txt");
+	if (!file.is_open()) {
+		cout << "Error while open file" << endl;
+		return;
+	}
+	string line;
+	while (getline(file, line)) {
+		cout << line << endl;
+	}
+
+	file.close();
 }
 
 void GamePlay::showUserInfo() const {
 	cout << "--------------------" << endl;
 
-	cout << "Name: " << players[HUMAN]->getName() << endl;
-	cout << "Amount of ships(size): " << players[HUMAN]->getNrShips() 
-		 << "(" << players[HUMAN]->getShips()[0]->getLength() << "x" << players[HUMAN]->getShips()[0]->getWidth() << ")" << endl;
-	cout << "Board data: " << endl;
-	cout << "  Size: " << players[HUMAN]->getBoard()->getHeight() << "x" << players[HUMAN]->getBoard()->getWidth() << endl;
-	cout << "  Status:" << endl;
-	players[HUMAN]->getBoard()->showMatrix();
+	if (players.size() == 0) {
+		cout << "No user" << endl;
+	} else {
+		cout << "Name: " << players[HUMAN]->getName() << endl;
+		cout << "Amount of ships(size): " << players[HUMAN]->getNrShips() 
+			<< "(" << players[HUMAN]->getShips()[0]->getLength() << "x" << players[HUMAN]->getShips()[0]->getWidth() << ")" << endl;
+		cout << "Board data: " << endl;
+		cout << "  Size: " << players[HUMAN]->getBoard()->getHeight() << "x" << players[HUMAN]->getBoard()->getWidth() << endl;
+		cout << "  Status:" << endl;
+		players[HUMAN]->getBoard()->showMatrix();
+	}
 }
 
 void GamePlay::doTask(const int &choice) {
@@ -254,6 +269,85 @@ void GamePlay::printMenu() const {
 	cout << "2. Show high score" << endl;
 	cout << "3. Show user info" << endl;
 	cout << "*************************" << endl;
+}
+
+void GamePlay::setHighScore() {
+	string file_name = "high_score.txt";
+	ofstream create_file;
+	create_file.open(file_name, ios::app);
+	if (!create_file.is_open()) {
+		cout << "Error while open file" << endl;
+		return;
+	}
+	create_file.close();
+
+	ifstream read_file(file_name);
+	if (!read_file.is_open()) {
+		cout << "Error while open file1" << endl;
+		return;
+	}
+	
+	vector<string> lines;
+	int score = (float)players[HUMAN]->getNrTargetShots() / players[HUMAN]->getTotalShots() * 100;
+	string line;
+	bool valid = true;
+	bool choosing = true;
+
+	if (!getline(read_file, line)) {
+		string new_line = players[HUMAN]->getName() + " " + to_string(score);
+		lines.push_back(new_line);
+		cout << "empty" << endl;
+	} else {
+		while (choosing) {
+			cout << "line: " << line  << endl;
+			int high_score = getHightScore(line);
+			string new_line = players[HUMAN]->getName() + " " + to_string(score);
+			
+			if (score >= high_score && valid) {
+				
+				lines.push_back(new_line);
+				valid = false;
+			}
+			lines.push_back(line);
+
+			if (getline(read_file, line)) {
+				choosing = true;
+			} else {
+				choosing = false;
+				if (lines.size() < 10 && valid) {
+					lines.push_back(new_line);
+				}
+			}
+			cout << lines.size();
+		}
+	}
+
+	read_file.close();
+	cout << lines.size() << endl;
+	if (lines.size() > 10) {
+		lines.erase(lines.end());
+	}
+
+	ofstream write_file(file_name, ios::trunc);
+	if (!write_file.is_open()) {
+		cout << "Error while open file" << endl;
+		return;
+	}
+
+	for (int i = 0; i < (int)lines.size(); i++) {
+		write_file << lines[i] + "\n";
+		cout << lines[i] << endl;
+	}
+	write_file.close();
+}
+
+int GamePlay::getHightScore(const string &line) const {
+	int high_score = 0;
+	size_t index_found = line.find(" ");
+
+	high_score = stoi(line.substr(index_found+1));
+
+	return high_score;
 }
 
 GamePlay::~GamePlay() {
