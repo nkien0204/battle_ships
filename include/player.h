@@ -32,7 +32,7 @@ public:
 	void setHP(const int &hp);
 	int getHP() const;
 
-	virtual void choosePosition(int &x, int &y, const vector<vector<int>> matrix) = 0;
+	virtual void choosePosition(int &x, int &y, const vector<vector<int>> matrix, bool &flag) = 0;
 	virtual ~Player();
 };
 
