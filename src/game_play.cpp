@@ -144,6 +144,7 @@ void GamePlay::shot() {
 	bool running = true;
 	int x, y;
 	string s_x, s_y;
+	bool flag = false;
 
 	while (running) {
 		vector<vector<int>> matrix = players[!turn]->getBoard()->getMatrix();
@@ -173,11 +174,13 @@ void GamePlay::shot() {
 				}
 			}
 		} else {
-			players[COM]->choosePosition(x, y, matrix);
+			players[COM]->choosePosition(x, y, matrix, flag);
 			cout << "Computer choose x = " << x << ", y = " << y << endl;
 		}
 
 		if (matrix[x][y] == 1) {
+			if (turn == COM) flag = true;
+
 			players[turn]->setNrTargetShots();
 			int current_opponent_hp = players[!turn]->getHP() - 1;
 			cout << "Good shot!, opponent's HP =  " 
@@ -208,6 +211,7 @@ void GamePlay::shot() {
 		} else {
 			cout << "Missing!" << endl << endl;
 			players[turn]->setTotalShots();
+			if (turn == COM) flag = false;
 			turn = !turn;
 		}
 	}
