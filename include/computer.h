@@ -18,12 +18,12 @@ public:
 	Computer(const char &level, const Board *hum_board, const vector<Ship *> &hum_ships);
 	void createBoard(const Board *hum_board);
 	void createShips(const vector<Ship *> &hum_ships);
-	void choosePosition(int &x, int &y, const vector<vector<int>> matrix);
+	void choosePosition(int &x, int &y, const vector<vector<int>> matrix, bool &flag);
 	~Computer();
 private:
 	void playEasyLv(int &x, int &y, const vector<vector<int>> matrix);
-	void playMediumLv(int &x, int &y, const vector<vector<int>> matrix);
-	void playHardLv(int &x, int &y, const vector<vector<int>> matrix);
+	void playMediumLv(int &x, int &y, const vector<vector<int>> matrix, bool &flag);
+	void playHardLv(int &x, int &y, const vector<vector<int>> matrix, bool &flag);
 };
 
 #endif
