@@ -10,6 +10,7 @@
 
 #include <iostream>
 #include <vector>
+#include <fstream>
 #include <string>
 #include "board.h"
 #include "player.h"
@@ -54,6 +55,8 @@ private:
 	bool checkLeft(const int &x, int y, const int &length, vector<vector<int>> &matrix);
 	bool checkRight(const int &x, int y, const int &length, vector<vector<int>> &matrix);
 	void shot();
+	void setHighScore();
+	int getHightScore(const string &line) const;
 };
 
 #endif
